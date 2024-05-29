@@ -1,6 +1,6 @@
 'use client';
 
-import { SurveySubmission } from '@prisma/client';
+import { Prisma, SurveySubmission } from '@prisma/client';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
@@ -22,8 +22,12 @@ import {
 import { format } from 'date-fns';
 import Delete from './Delete';
 
+type SurveySubmissionWithUser = Prisma.SurveySubmissionGetPayload<{
+  include: { user: true };
+}>;
+
 const Stats = () => {
-  const [data, setData] = useState<SurveySubmission[]>([]);
+  const [data, setData] = useState<SurveySubmissionWithUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [averagesTerminal, setAveragesTerminal] = useState<
     { value: string; averageOrder: number }[]
