@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id                String             @id @default(auto()) @map("_id") @db.ObjectId
+  firstName         String
+  lastName          String
+  surveySubmissions SurveySubmission[]
+}
+
+model Value {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String    @unique
+  description String?
+  type        ValueType
+  createdAt   DateTime  @default(now())
+}
+
+model SurveySubmission {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
+  user              User     @relation(fields: [userId], references: [id])
+  instrumentalOrder String[]
+  terminalOrder     String[]
+  createdAt         DateTime @default(now())
+
+  @@index([userId])
+}
+
+// game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+//   gameId String @db.ObjectId
+
+// model SurveySubmission {
+//   id                String   @id @default(auto()) @map("_id") @db.ObjectId
+//   userId            String   @db.ObjectId
+//   user              User     @relation(fields: [userId], references: [id])
+//   instrumentalOrder Json
+//   terminalOrder     Json
+//   createdAt         DateTime @default(now())
+//   Value             Value?   @relation(fields: [valueId], references: [id])
+//   valueId           String?  @db.ObjectId
+
+//   @@index([userId])
+// }
+
+enum ValueType {
+  INSTRUMENTAL
+  TERMINAL
+}
