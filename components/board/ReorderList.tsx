@@ -13,13 +13,12 @@ const ReorderList = ({
   setItems: Dispatch<SetStateAction<Value[]>>;
 }) => {
   return (
-    <div className="flex flex-row w-96">
-      <div></div>
-      <div className="w-96">
+    <div className="flex flex-row w-[30rem]">
+      <div className="w-[30rem]">
         <Reorder.Group axis="y" values={items} onReorder={setItems}>
           {items.map((item, index) => (
             <Reorder.Item
-              className="py-1 cursor-pointer flex flex-row items-center"
+              className="py-1 cursor-grab flex flex-row items-center"
               key={item?.id}
               value={item}
             >

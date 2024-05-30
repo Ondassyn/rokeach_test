@@ -32,24 +32,31 @@ const Values = () => {
   }, []);
 
   return (
-    <div className="py-8 flex flex-col gap-4 justify-center max-w-96 w-full">
+    <div className="py-8 flex flex-col gap-4 justify-center items-center">
       <div className="flex flex-row justify-end">
         <CreateValue fetchData={fetchData} />
       </div>
-      {VALUE_TYPES?.map((vt) => (
-        <div key={vt?.code} className="flex flex-col gap-4">
-          <div className="text-white font-semibold">{vt?.title}</div>
-          <div className="flex flex-col gap-2">
-            {values
-              .filter((v) => v?.type === vt?.code)
-              .map((v) => (
-                <div key={v.id}>
-                  <ValueCard value={v} />
-                </div>
-              ))}
+      <div className="flex flex-row gap-12">
+        {VALUE_TYPES?.map((vt) => (
+          <div
+            key={vt?.code}
+            className="flex flex-col gap-4 w-96 items-center"
+          >
+            <div className="text-white font-semibold">
+              {vt?.title}
+            </div>
+            <div className="flex flex-col gap-2">
+              {values
+                .filter((v) => v?.type === vt?.code)
+                .map((v) => (
+                  <div key={v.id}>
+                    <ValueCard value={v} />
+                  </div>
+                ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

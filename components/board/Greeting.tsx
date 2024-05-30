@@ -32,6 +32,8 @@ const Greeting = ({
       placement="top-center"
       backdrop="opaque"
       size="5xl"
+      hideCloseButton={true}
+      isDismissable={false}
     >
       <ModalContent>
         {(onClose) => (
