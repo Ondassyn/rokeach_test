@@ -142,7 +142,7 @@ const Stats = () => {
             >
               <TableHeader>
                 <TableColumn>Ценность</TableColumn>
-                <TableColumn>Срендяя позиция</TableColumn>
+                <TableColumn>Средняя позиция</TableColumn>
               </TableHeader>
               <TableBody
                 emptyContent={'Нет данных'}
@@ -152,7 +152,7 @@ const Stats = () => {
                   <TableRow key={index}>
                     <TableCell>{a?.value}</TableCell>
                     <TableCell className="text-center">
-                      {a?.averageOrder}
+                      {a?.averageOrder?.toFixed(2)}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -173,14 +173,14 @@ const Stats = () => {
             >
               <TableHeader>
                 <TableColumn>Ценность</TableColumn>
-                <TableColumn>Срендяя позиция</TableColumn>
+                <TableColumn>Средняя позиция</TableColumn>
               </TableHeader>
               <TableBody emptyContent={'Нет данных'}>
                 {averagesInstrumental?.map((a, index) => (
                   <TableRow key={index}>
                     <TableCell>{a?.value}</TableCell>
                     <TableCell className="text-center">
-                      {a?.averageOrder}
+                      {a?.averageOrder?.toFixed(2)}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -196,7 +196,7 @@ const Stats = () => {
         {loading ? (
           <CircularProgress className="py-4" size="lg" />
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-4">
             {data?.length ? (
               data?.map((d) => (
                 <Card key={d?.id}>
